@@ -1,0 +1,27 @@
+﻿@page
+@model NWTDb.Pages.Product.IndexModel
+@{
+}
+
+<h1>Product List</h1>
+
+<div class="row">
+    @foreach (var product in Model.ProdList)
+    {
+        <div class="col-md-4 mb-1">
+            <div class="card">
+                <img src="~/images/@product.prodimage" class="card-img-top" style="height:375px" style="width:100px" />
+                <div class="card-body">
+                    <h5 class="card-title">@product.ProductName</h5>
+
+                    <p class="card-text">
+                        @product.Description
+
+                        Price : @product.ListPrice.ToString("c")
+                    </p>
+                    <a class="btn btn-primary" asp-page="/Product/ProductDetails" asp-route-id="@product.ProductID">View Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
