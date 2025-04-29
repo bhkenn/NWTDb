@@ -36,9 +36,9 @@ namespace NWTDb.Data
                                 CategoryID = reader.GetInt32(4),
                                 StandardCost = reader.GetDecimal(5),
                                 ListPrice = reader.GetDecimal(6),
-                                RedorderLevel = reader.GetInt32(7),
+                                ReorderLevel = reader.GetInt32(7),
                                 TargetLevel = reader.GetInt32(8),
-                                Discounted = reader.GetBoolean(9),
+                                Discontinued = reader.GetBoolean(9),
                                 SupplierID = reader.GetInt32(10),
                                 AvailableQty = reader.GetInt32(11),
                                 Reordered = reader.GetBoolean(12),
@@ -73,9 +73,9 @@ namespace NWTDb.Data
                             CategoryID = reader.GetInt32(4),
                             StandardCost = reader.GetDecimal(5),
                             ListPrice = reader.GetDecimal(6),
-                            RedorderLevel = reader.GetInt32(7),
+                            ReorderLevel = reader.GetInt32(7),
                             TargetLevel = reader.GetInt32(8),
-                            Discounted = reader.GetBoolean(9),
+                            Discontinued = reader.GetBoolean(9),
                             SupplierID = reader.GetInt32(10),
                             AvailableQty = reader.GetInt32(11),
                             Reordered = reader.GetBoolean(12),
@@ -85,6 +85,51 @@ namespace NWTDb.Data
                 }
             }
             return retrievedProduct;
+        }
+
+        public void DeleteProduct(int prodID)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var cmd = new SqlCommand("spDeleteProduct", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@prodID", prodID);
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void CreateProduct(Products product)
+        {
+            var parameters = new SqlParameter[]
+            {
+                new SqlParameter("@ProductCode", SqlDbType.NVarChar) { Value = product.ProductCode },
+                new SqlParameter("@ProductName", SqlDbType.NVarChar) { Value = product.ProductName },
+                new SqlParameter("@Description", SqlDbType.NVarChar) { Value = product.Description },
+                new SqlParameter("@CategoryID", SqlDbType.Int) { Value = product.CategoryID },
+                new SqlParameter("@StandardCost", SqlDbType.Money) { Value = product.StandardCost },
+                new SqlParameter("@ListPrice", SqlDbType.Money) { Value = product.ListPrice },
+                new SqlParameter("@ReorderLevel", SqlDbType.Int) { Value = product.ReorderLevel },
+                new SqlParameter("@TargetLevel", SqlDbType.Int) { Value = product.TargetLevel },
+                new SqlParameter("@Discontinued", SqlDbType.Bit) { Value = product.Discontinued },
+                new SqlParameter("@SupplierID", SqlDbType.Int) { Value = product.SupplierID },
+                new SqlParameter("@AvailableQty", SqlDbType.Int) { Value = product.AvailableQty },
+                new SqlParameter("@Reordered", SqlDbType.Int) { Value = product.Reordered },
+                new SqlParameter("@prodimage", SqlDbType.NVarChar) { Value = product.prodimage }
+            };
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                using (var cmd = new SqlCommand("spInsertProduct", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddRange(parameters);
+
+                    connection.Open();
+                    cmd.ExecuteScalar();
+                }
+            }
         }
     }
 }

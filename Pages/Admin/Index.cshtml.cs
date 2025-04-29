@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NWTDb.Models;
 using NWTDb.Data;
+using Microsoft.AspNetCore.Authorization;
 
-namespace NWTDb.Pages.Product
+namespace NWTDb.Pages.Admin
 {
+    [Authorize(Roles = "Administrator")]
     public class IndexModel : PageModel
     {
         private readonly IProductsRepository _productsRepository;

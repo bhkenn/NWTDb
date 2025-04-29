@@ -20,6 +20,7 @@ namespace NWTDb
             builder.Services.AddRazorPages();
 
             builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
+            builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
 
             var app = builder.Build();
 

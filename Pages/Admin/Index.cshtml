@@ -1,9 +1,10 @@
 ﻿@page
-@model NWTDb.Pages.Product.IndexModel
+@model NWTDb.Pages.Admin.IndexModel
 @{
 }
 
 <h1>Product List</h1>
+<div class="fixed-bottom text-lg-end mx-4 mb-4"><a class="btn btn-primary btn-lg text-lg-end" asp-page="CreateProduct">+ Create</a></div>
 
 <div class="row">
     @foreach (var product in Model.ProdList)
@@ -17,7 +18,7 @@
                     <p class="card-text">
                         Price : @product.ListPrice.ToString("c")
                     </p>
-                    <a class="btn btn-primary" asp-page="/Product/ProductDetails" asp-route-id="@product.ProductID">View Details</a>
+                    <a class="btn btn-primary" asp-page="/Admin/ProductDetails" asp-route-id="@product.ProductID">View Details</a>
                 </div>
             </div>
         </div>

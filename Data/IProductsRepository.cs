@@ -7,5 +7,9 @@ namespace NWTDb.Data
         List<Products> GetProductsByCategory(int catID);
 
         Products GetProductByID(int id);
+
+        void DeleteProduct(int prodID);
+
+        void CreateProduct(Products product);
     }
 }

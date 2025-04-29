@@ -1,0 +1,33 @@
+﻿@page
+@model NWTDb.Pages.Product.PlaceOrderModel
+@{
+}
+
+<h2>Provide Shipping Information</h2>
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div>
+                <label asp-for="OrderInput.Name"></label>
+                <input asp-for="OrderInput.Name" />
+            </div>
+            <button class="btn btn-primary">Place Order</button>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <h2>Order Summary</h2>
+        <ul class="list-group">
+            @foreach (var item in Model.CartItems)
+            {
+                <li class="list-group-item justify-content-between">
+                    <span>@item.ProductName (x @item.QuantityToOrder)</span>
+                    <span>@item.Subtotal.ToString("c")</span>
+                </li>
+            }
+        </ul>
+        <hr />
+        <div class="text-end">
+            <strong>Total: @Model.CartTotal.ToString("c")</strong>
+        </div>
+    </div>
+</div>

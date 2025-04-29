@@ -12,18 +12,37 @@
             @Model.product.ProductName
         </h1>
         <p>
+            Product Code: @Model.product.ProductCode
+        </p>
+        <p>
+            Description: @Model.product.Description
+        </p>
+        <p>
+            Standard Cost: @Model.product.StandardCost
+        </p>
+        <p>
+            List Price: @Model.product.ListPrice
+        </p>
+        <p>
             Target Level: @Model.product.TargetLevel
         </p>
         <p>
-            Reorder Level: @Model.product.RedorderLevel
+            Reorder Level: @Model.product.ReorderLevel
         </p>
         <p>
             Available Qty: @Model.product.AvailableQty
+        </p>
+        <p>
+            Discontinued: @Model.product.Discontinued
+        </p>
+        <p>
+            Reordered: @Model.product.Reordered
         </p>
 
         <div class="card-footer">
             <form method="post">
                 <input type="hidden" name="productID" value="@Model.product.ProductID" />
+                <input type="hidden" name="cartID" value="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value" />
                 <button type="submit" class="btn btn-primary">Add to Cart</button>
             </form>
         </div>

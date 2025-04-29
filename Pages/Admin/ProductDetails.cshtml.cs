@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using NWTDb.Data;
 using NWTDb.Models;
 
-namespace NWTDb.Pages.Product
+namespace NWTDb.Pages.Admin
 {
-    [Authorize(Roles = "Employee, Administrator")]
+    [Authorize(Roles = "Administrator")]
     public class ProductDetailsModel : PageModel
     {
         private readonly IProductsRepository _productRepository;
@@ -22,12 +22,12 @@ namespace NWTDb.Pages.Product
         {
             product = _productRepository.GetProductByID(id);
         }
-        public IActionResult OnPost(int productID, string cartID)
+        public IActionResult OnPost(int prodID)
         {
             if (ModelState.IsValid)
             {
-                _shoppingCartRepository.AddToCart(cartID, productID);
-                return RedirectToPage("ShoppingCart");
+                _productRepository.DeleteProduct(prodID);
+                return RedirectToPage("Index");
             }
             return Page();
         }
