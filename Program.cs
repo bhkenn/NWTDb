@@ -21,6 +21,10 @@ namespace NWTDb
 
             builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
             builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
+            builder.Services.AddAuthorization(options => { options.AddPolicy("AdminOnly", policy => policy.RequireRole("Administrator")); });
+            builder.Services.AddRazorPages(options => { options.Conventions.AuthorizeFolder("/Admin", "AdminOnly"); });
 
             var app = builder.Build();
 

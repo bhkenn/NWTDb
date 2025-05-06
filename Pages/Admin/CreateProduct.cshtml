@@ -21,37 +21,37 @@
 
     <div class="form-group">
         <label>CategoryID</label>
-        <input type="text" class="form-control" asp-for="product.CategoryID" required />
+        <input type="number" class="form-control" asp-for="product.CategoryID" min="100" max="104" placeholder="100-104" required />
     </div>
 
     <div class="form-group">
         <label>Standard Cost</label>
-        <input type="text" class="form-control" asp-for="product.StandardCost" required />
+        <input type="number" class="form-control" asp-for="product.StandardCost" required />
     </div>
 
     <div class="form-group">
         <label>List Cost</label>
-        <input type="text" class="form-control" asp-for="product.ListPrice" required />
+        <input type="number" class="form-control" asp-for="product.ListPrice" required />
     </div>
 
     <div class="form-group">
         <label>Reorder Level</label>
-        <input type="text" class="form-control" asp-for="product.ReorderLevel" required />
+        <input type="number" class="form-control" asp-for="product.ReorderLevel" required />
     </div>
 
     <div class="form-group">
         <label>Target Level</label>
-        <input type="text" class="form-control" asp-for="product.TargetLevel" required />
+        <input type="number" class="form-control" asp-for="product.TargetLevel" required />
     </div>
     
     <div class="form-group">
         <label>Supplier ID</label>
-        <input type="text" class="form-control" asp-for="product.SupplierID" required />
+        <input type="number" class="form-control" asp-for="product.SupplierID" min="300" max="305" placeholder="300-305" required />
     </div>
 
     <div class="form-group">
         <label>Available Quantity</label>
-        <input type="text" class="form-control" asp-for="product.AvailableQty" required />
+        <input type="number" class="form-control" asp-for="product.AvailableQty" required />
     </div>
 
     <div class="form-group">
@@ -69,6 +69,7 @@
         <label class="form-check-label">Reordered</label>
     </div>
 
+    <div>
+        <button type="submit" class="btn btn-primary">Create</button>
     </div>
-    <button type="submit" class="btn btn-primary">Create</button>
 </form>

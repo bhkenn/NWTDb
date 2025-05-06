@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace NWTDb.Pages.Admin
 {
-    [Authorize(Roles = "Administrator")]
     public class IndexModel : PageModel
     {
         private readonly IProductsRepository _productsRepository;
         public List<Products> ProdList { get; set; }
+        public int CatID { get; set; }
         public IndexModel(IProductsRepository productsRepository)
         {
             _productsRepository = productsRepository;

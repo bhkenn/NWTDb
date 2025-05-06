@@ -1,33 +1,40 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis;
 using NWTDb.Data;
 using NWTDb.Models;
 
 namespace NWTDb.Pages.Admin
 {
-    [Authorize(Roles = "Administrator")]
     public class ProductDetailsModel : PageModel
     {
-        private readonly IProductsRepository _productRepository;
-        private readonly IShoppingCartRepository _shoppingCartRepository;
+        private readonly IProductsRepository productRepository;
+        private readonly IShoppingCartRepository shoppingCartRepository;
         public Products product { get; set; }
-        public ProductDetailsModel(IProductsRepository productRepository, IShoppingCartRepository shoppingCartRepository)
+        public ProductDetailsModel(IProductsRepository _productRepository, IShoppingCartRepository _shoppingCartRepository)
         {
-            _productRepository = productRepository;
-            _shoppingCartRepository = shoppingCartRepository;
+            productRepository = _productRepository;
+            shoppingCartRepository = _shoppingCartRepository;
 
         }
         public void OnGet(int id)
         {
-            product = _productRepository.GetProductByID(id);
+            product = productRepository.GetProductByID(id);
         }
-        public IActionResult OnPost(int prodID)
+        public IActionResult OnPost(int prodID, string cartID)
         {
             if (ModelState.IsValid)
             {
-                _productRepository.DeleteProduct(prodID);
-                return RedirectToPage("Index");
+                if (cartID == "0")
+                {
+                    productRepository.DeleteProduct(prodID);
+                }
+                else
+                {
+                    shoppingCartRepository.AddToCart(cartID, prodID);
+                }
+                return RedirectToPage("/Product/ShoppingCart");
             }
             return Page();
         }

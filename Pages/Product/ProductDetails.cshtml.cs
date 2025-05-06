@@ -9,24 +9,24 @@ namespace NWTDb.Pages.Product
     [Authorize(Roles = "Employee, Administrator")]
     public class ProductDetailsModel : PageModel
     {
-        private readonly IProductsRepository _productRepository;
-        private readonly IShoppingCartRepository _shoppingCartRepository;
+        private readonly IProductsRepository productRepository;
+        private readonly IShoppingCartRepository shoppingCartRepository;
         public Products product { get; set; }
-        public ProductDetailsModel(IProductsRepository productRepository, IShoppingCartRepository shoppingCartRepository)
+        public ProductDetailsModel(IProductsRepository _productRepository, IShoppingCartRepository _shoppingCartRepository)
         {
-            _productRepository = productRepository;
-            _shoppingCartRepository = shoppingCartRepository;
+            productRepository = _productRepository;
+            shoppingCartRepository = _shoppingCartRepository;
 
         }
         public void OnGet(int id)
         {
-            product = _productRepository.GetProductByID(id);
+            product = productRepository.GetProductByID(id);
         }
         public IActionResult OnPost(int productID, string cartID)
         {
             if (ModelState.IsValid)
             {
-                _shoppingCartRepository.AddToCart(cartID, productID);
+                shoppingCartRepository.AddToCart(cartID, productID);
                 return RedirectToPage("ShoppingCart");
             }
             return Page();

@@ -6,12 +6,12 @@ using NWTDb.Models;
 
 namespace NWTDb.Pages.Admin
 {
-    [Authorize(Roles = "Administrator")]
     public class CreateProductModel : PageModel
     {
         private readonly IProductsRepository _productRepository;
         [BindProperty]
         public Products product { get; set; }
+        public int CatID { get; set; }
         public CreateProductModel(IProductsRepository productRepository)
         {
             _productRepository = productRepository;
@@ -21,8 +21,12 @@ namespace NWTDb.Pages.Admin
         }
         public IActionResult OnPost()
         {
-            _productRepository.CreateProduct(product);
-            return RedirectToPage("Index");
+            if (ModelState.IsValid)
+            {
+                _productRepository.CreateProduct(product);
+                return RedirectToPage("/Index");
+            }
+            return Page();
         }
     }
 }

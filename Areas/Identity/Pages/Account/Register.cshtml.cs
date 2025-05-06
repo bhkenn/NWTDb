@@ -126,13 +126,19 @@ namespace NWTDb.Areas.Identity.Pages.Account
                     await _roleManager.CreateAsync(new IdentityRole("Employee"));
                     await _roleManager.CreateAsync(new IdentityRole("Administrator"));
 
+                    var user1 = CreateUser();
+                    user1.Email = "empuser1@test.com";
+                    user1.UserName = "empuser1@test.com";
+                    var userCreated = await _userManager.CreateAsync(user1, "Test1234!");
+                    if (userCreated.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(user1, "Employee");
+                    }
+
                     var user2 = CreateUser();
-
-                    user2.Email = "empuser1@test.com";
-                    user2.UserName = "empuser1@test.com";
-
-                    var userCreated = await _userManager.CreateAsync(user2, "Test1234!");
-
+                    user2.Email = "adminuser1@test.com";
+                    user2.UserName = "adminuser1@test.com";
+                    userCreated = await _userManager.CreateAsync(user2, "Test1234!");
                     if (userCreated.Succeeded)
                     {
                         await _userManager.AddToRoleAsync(user2, "Administrator");

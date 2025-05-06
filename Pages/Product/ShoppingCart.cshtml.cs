@@ -26,13 +26,19 @@ namespace NWTDb.Pages.Product
         }
         public IActionResult OnPost()
         {
+            string cartID = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
             if (ModelState.IsValid)
             {
                 foreach (var item in CartItems)
                 {
                     _shoppingCartRepository.UpdateCartItem(item.CartID, item.ProductID, item.QuantityToOrder);
                 }
+                ModelState.Clear();
+
+                CartItems = _shoppingCartRepository.LoadCartItems(cartID, out decimal total);
+                CartTotal = total;
             }
+
             return Page();
         }
     }

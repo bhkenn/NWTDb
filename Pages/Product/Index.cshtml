@@ -8,17 +8,20 @@
 <div class="row">
     @foreach (var product in Model.ProdList)
     {
-        <div class="col-md-4 mb-1">
+        <div class="col-md-4 mb-3">
             <div class="card">
                 <img src="~/images/@product.prodimage" class="card-img-top" style="height:375px" style="width:100px" />
                 <div class="card-body">
                     <h5 class="card-title">@product.ProductName</h5>
 
                     <p class="card-text">
-                        Price : @product.ListPrice.ToString("c")
+                        Target Level : @product.TargetLevel
                     </p>
-                    <a class="btn btn-primary" asp-page="/Product/ProductDetails" asp-route-id="@product.ProductID">View Details</a>
+                    <p class="card-text" >
+                        Available Quantity : @product.AvailableQty
+                    </p>
                 </div>
+                <a class="btn btn-outline-primary stretched-link" asp-page="/Product/ProductDetails" asp-route-id="@product.ProductID">View Details</a>
             </div>
         </div>
     }
