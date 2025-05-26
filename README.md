@@ -4,7 +4,7 @@ MIST 353 Final Assignment. An inventory management system for employees of the f
 
 ### Prerequisites
 
-This project is built on .NET 8.0, and connects to an external SQL database.
+This project is built on .NET 8.0, and connects to an external SQL database. A db creation script is provided in the project files.
 
 
 ## Built With
